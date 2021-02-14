@@ -8,27 +8,27 @@ Test coverage 💯%.
 
 ## Parser
 
-Usage: [ex/validate.ts](https://github.com/ycw/svg-path/ex/validate.ts)
+Usage: [ex/validate.ts](../ex/validate.ts)
 
 Supported options: `> deno doc src/mod.ts LexOpt`
 
 
 ## Error Handling
 
-Usage: [ex/triage.ts](https://github.com/ycw/svg-path/ex/triage.ts)
+Usage: [ex/triage.ts](../ex/triage.ts)
 
 Supported error assertions: `> deno doc src/mod.ts LexErr`
 
 
 ## Transformer
 
-Usage: [ex/transform.ts](https://github.com/ycw/svg-path/ex/transform.ts)
+Usage: [ex/transform.ts](../ex/transform.ts)
 
 Supported segment assertions: `> deno doc src/mod.ts Seg`
 
 
 ## Generator
 
-Usage: [ex/codegen.ts](https://github.com/ycw/svg-path/ex/codegen.ts)
+Usage: [ex/codegen.ts](../ex/codegen.ts)
 
 Supported options: `> deno doc src/mod.ts GenOpt`
