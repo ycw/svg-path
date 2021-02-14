@@ -8,27 +8,27 @@ Test coverage 💯%.
 
 ## Parser
 
-Usage: [ex/validate.ts](../ex/validate.ts)
+Ex: `ex/validate.ts`
 
 Supported options: `> deno doc src/mod.ts LexOpt`
 
 
 ## Error Handling
 
-Usage: [ex/triage.ts](../ex/triage.ts)
+Ex: `ex/triage.ts`
 
 Supported error assertions: `> deno doc src/mod.ts LexErr`
 
 
 ## Transformer
 
-Usage: [ex/transform.ts](../ex/transform.ts)
+Ex: `ex/transform.ts`
 
 Supported segment assertions: `> deno doc src/mod.ts Seg`
 
 
 ## Generator
 
-Usage: [ex/codegen.ts](../ex/codegen.ts)
+Ex: `ex/codegen.ts`
 
 Supported options: `> deno doc src/mod.ts GenOpt`
