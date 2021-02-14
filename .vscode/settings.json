@@ -1,0 +1,9 @@
+{
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "deno.import_map": "./import-map.json",
+  "deno.import_intellisense_origins": {
+    "https://deno.land": true
+  }
+}
