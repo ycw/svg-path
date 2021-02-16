@@ -129,7 +129,7 @@ export function generate(segs: Seg[], opt: GenOpt = {}): string {
     } else if (seg.isS()) {
       s = [seg.x2, seg.y2, seg.x, seg.y].reduce(toStr, s);
     } else if (seg.isC()) {
-      s = [seg.x1, seg.x2, seg.x2, seg.y2, seg.x, seg.y].reduce(toStr, s);
+      s = [seg.x1, seg.y1, seg.x2, seg.y2, seg.x, seg.y].reduce(toStr, s);
     } else if (seg.isA()) {
       s = [
         seg.rx,
