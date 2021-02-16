@@ -2,7 +2,7 @@
 
 SVG path data toolset written in typescript running on [deno](https://github.com/denoland/deno). 
 
-Parser complies with SVG 1.1 [grammer](https://www.w3.org/TR/SVG11/paths.html#PathDataBNF).
+Parser complies with SVG 1.1 [grammar](https://www.w3.org/TR/SVG11/paths.html#PathDataBNF).
 
 Test coverage 💯%.
 
