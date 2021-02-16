@@ -59,7 +59,6 @@ Supported flags:
 |`-y` | 0 | ditto.
 |`-w` | 1 | ditto.
 |`-h` | 1 | ditto.
-|
 
 Formula:
 
