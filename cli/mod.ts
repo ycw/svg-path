@@ -61,72 +61,80 @@ let segs1 = segs0;
 
 if (opt.x != 0 || opt.y != 0 || opt.w != 1 || opt.h != 1) {
   //
-  // To abs.
-  //
-
-  let x0 = 0;
-  let y0 = 0;
-  let x = 0;
-  let y = 0;
-  segs1 = D.transform(segs0, (seg) => {
-    if (seg.isM()) {
-      seg.toAbs(x, y);
-      x = x0 = seg.x;
-      y = y0 = seg.y;
-    } else if (seg.isZ()) {
-      seg.toAbs(x, y);
-      x = x0;
-      y = y0;
-    } else if (seg.isH()) {
-      seg.toAbs(x, y);
-      x = seg.x;
-    } else if (seg.isV()) {
-      seg.toAbs(x, y);
-      y = seg.y;
-    } else if (
-      seg.isL() || seg.isT() || seg.isQ() || seg.isS() || seg.isC() || seg.isA()
-    ) {
-      seg.toAbs(x, y);
-      x = seg.x;
-      y = seg.y;
-    }
-    return seg;
-  });
-
-  //
   // Transform coords.
   //
 
   const fx = (x: number) => (x - opt.x) / opt.w;
   const fy = (y: number) => (y - opt.y) / opt.h;
-  segs1 = D.transform(segs1, (seg) => {
+  segs1 = D.transform(segs0, (seg) => {
     if (seg.isM() || seg.isL() || seg.isT()) {
-      seg.x = fx(seg.x);
-      seg.y = fy(seg.y);
+      if (seg.isAbs()) {
+        seg.x = fx(seg.x);
+        seg.y = fy(seg.y);
+      } else {
+        seg.x /= opt.w;
+        seg.y /= opt.h;
+      }
     } else if (seg.isH()) {
-      seg.x = fx(seg.x);
+      if (seg.isAbs()) {
+        seg.x = fx(seg.x);
+      } else {
+        seg.x /= opt.w;
+      }
     } else if (seg.isV()) {
-      seg.y = fy(seg.y);
+      if (seg.isAbs()) {
+        seg.y = fy(seg.y);
+      } else {
+        seg.y /= opt.h;
+      }
     } else if (seg.isC()) {
-      seg.x1 = fx(seg.x1);
-      seg.y1 = fy(seg.y1);
-      seg.x2 = fx(seg.x2);
-      seg.y2 = fy(seg.y2);
-      seg.x = fx(seg.x);
-      seg.y = fy(seg.y);
+      if (seg.isAbs()) {
+        seg.x1 = fx(seg.x1);
+        seg.y1 = fy(seg.y1);
+        seg.x2 = fx(seg.x2);
+        seg.y2 = fy(seg.y2);
+        seg.x = fx(seg.x);
+        seg.y = fy(seg.y);
+      } else {
+        seg.x1 /= opt.w;
+        seg.y1 /= opt.h;
+        seg.x2 /= opt.w;
+        seg.y2 /= opt.h;
+        seg.x /= opt.w;
+        seg.y /= opt.h;
+      }
     } else if (seg.isS()) {
-      seg.x2 = fx(seg.x2);
-      seg.y2 = fy(seg.y2);
-      seg.x = fx(seg.x);
-      seg.y = fy(seg.y);
+      if (seg.isAbs()) {
+        seg.x2 = fx(seg.x2);
+        seg.y2 = fy(seg.y2);
+        seg.x = fx(seg.x);
+        seg.y = fy(seg.y);
+      } else {
+        seg.x2 /= opt.w;
+        seg.y2 /= opt.h;
+        seg.x /= opt.w;
+        seg.y /= opt.h;
+      }
     } else if (seg.isQ()) {
-      seg.x1 = fx(seg.x1);
-      seg.y1 = fy(seg.y1);
-      seg.x = fx(seg.x);
-      seg.y = fy(seg.y);
+      if (seg.isAbs()) {
+        seg.x1 = fx(seg.x1);
+        seg.y1 = fy(seg.y1);
+        seg.x = fx(seg.x);
+        seg.y = fy(seg.y);
+      } else {
+        seg.x1 /= opt.w;
+        seg.y1 /= opt.h;
+        seg.x /= opt.w;
+        seg.y /= opt.h;
+      }
     } else if (seg.isA()) {
-      seg.x = fx(seg.x);
-      seg.y = fy(seg.y);
+      if (seg.isAbs()) {
+        seg.x = fx(seg.x);
+        seg.y = fy(seg.y);
+      } else {
+        seg.x /= opt.w;
+        seg.y /= opt.h;
+      }
       seg.rx /= opt.w;
       seg.ry /= opt.h;
     }
