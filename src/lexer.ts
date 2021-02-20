@@ -92,7 +92,7 @@ export type Instr = [TkCmd, TkNum[]];
  * @param d Path data.
  * @param opt Lexer options.
  * @returns Array of instructions.
- * @throws LexErrs
+ * @throws LexErr
  */
 export function analyze(d: string, opt: LexOpt = defOpt): Instr[] {
   const tks = tokenize(d);

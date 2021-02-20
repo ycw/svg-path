@@ -18,7 +18,7 @@ import {
  * @param d Path data.
  * @param opt Lexer options.
  * @returns Array of path segments.
- * @throws `LexErr`
+ * @throws LexErr
  */
 export function parse(d: string, opt?: LexOpt): Seg[] {
   const instrs = analyze(d, opt);
