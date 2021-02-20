@@ -72,7 +72,7 @@ export interface LexOpt {
 /**
  * Default lexer options.
  */
-export const defOpt: Required<LexOpt> = {
+const defOpt: Required<LexOpt> = {
   allowTrailingDot: false,
   allowNotBeginWithMoveTo: false,
   allowBeginWithComma: false,
