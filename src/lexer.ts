@@ -88,7 +88,7 @@ const defOpt: Required<LexOpt> = {
 export type Instr = [TkCmd, TkNum[]];
 
 /**
- * Check grammer and re-group tokens.
+ * Check grammar and re-group tokens.
  * @param d Path data.
  * @param opt Lexer options.
  * @returns Array of instructions.
