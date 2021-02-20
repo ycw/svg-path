@@ -1,4 +1,3 @@
-export type { LexOpt } from "./lexer.ts";
 import { analyze, LexOpt } from "./lexer.ts";
 import {
   Seg,
