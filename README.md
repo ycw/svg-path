@@ -33,11 +33,13 @@ A toolset helps manipulate SVG 1.1 [path](https://www.w3.org/TR/SVG11/paths.html
 
 ## CLI 
 
-The CLI [app](./cli/mod.ts) accepts path data from stdin. 
+Installation:
+
+`$ deno install -n svg-path https://raw.githubusercontent.com/ycw/svg-path/main/cli/mod.ts`
 
 Example:
 
-`> echo "M 60 50 z" | deno run cli/mod.ts -w 100 -h 100 --terse`
+`$ echo "M 60 50 z" | svg-path -w 100 -h 100 --terse`
 
 Output: 
 
@@ -50,8 +52,8 @@ Available flags:
 |`--terse`| | Eliminate unnecessary whitespaces and leading zeros.
 |`--combine` | | Eliminate unnecessary command letters.
 |`--mulitline` | | Separate commands by line feeds.
-|`-t` | 4 | Decimal places that numbers are truncated to.
-|`-x` | 0 | Transformation frame's x 
-|`-y` | 0 | Transformation frame's y
-|`-w` | 1 | Transformation frame's signed width 
-|`-h` | 1 | Transformation frame's signed height
+|`-t` | 4 | Decimal places that a decimal number is truncated to.
+|`-x` | 0 | Transformation frame's x.
+|`-y` | 0 | Transformation frame's y.
+|`-w` | 1 | Transformation frame's signed width. 
+|`-h` | 1 | Transformation frame's signed height.
