@@ -1,5 +1,4 @@
-import { parse } from "../src/parser.ts";
-import { transform } from "../src/transformer.ts";
+import { parse, transform } from "../src/mod.ts";
 
 const d = "M 10 20 30 40 H 50 V 60 z";
 const segs0 = parse(d);

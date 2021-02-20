@@ -1,5 +1,4 @@
-import { parse } from "../src/parser.ts";
-import { generate } from "../src/generator.ts";
+import { generate, parse } from "../src/mod.ts";
 
 const segs = parse("M0,1L2-3h0.1e1v0.6666z");
 const d = generate(segs, { multiline: true, combine: true, truncate: 2 });

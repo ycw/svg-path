@@ -1,8 +1,7 @@
-import { parse } from "../src/parser.ts";
-import { LexErr } from "../src/error.ts";
+import { LexErr, parse } from "../src/mod.ts";
 
 try {
-  parse(`M 1. 0`);
+  parse("M 1. 0", { allowTrailingDot: false });
 } catch (e) {
   if (e instanceof LexErr) {
     if (e.isTrailingDot()) {
