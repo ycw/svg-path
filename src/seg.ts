@@ -1,6 +1,12 @@
 import { CmdTy } from "./tokenizer.ts";
 
+/**
+ * Path segment.
+ */
 export abstract class Seg {
+  /**
+   * Command letter.
+   */
   abstract cmd: CmdTy;
   isM(): this is SegM {
     return false;
@@ -32,11 +38,34 @@ export abstract class Seg {
   isZ(): this is SegZ {
     return false;
   }
+  /**
+   * Check if the command is absolute.
+   */
   abstract isAbs(): boolean;
+  /**
+   * Check if the command is relative.
+   */
   abstract isRel(): boolean;
+  /**
+   * Convert to absolute command.
+   * @param x Reference global x 
+   * @param y Reference global y
+   */
   abstract toAbs(x: number, y: number): void;
+  /**
+   * Convert to relative command.
+   * @param x Reference global x
+   * @param y Reference global y
+   */
   abstract toRel(x: number, y: number): void;
+  /**
+   * Make a copy.
+   */
   abstract clone(): Seg;
+  /**
+   * Check if given segment has exact same command letter of this segment. 
+   * @param seg Another `Seg`.
+   */
   abstract isCmdEq(seg: Seg): boolean;
 }
 

@@ -25,14 +25,30 @@ export type CmdTy =
   | "Z"
   | "z";
 
+/**
+ * Token.
+ */
 export abstract class Tk {
+  /**
+   * Construct a token.
+   * @param pos Source position.
+   */
   constructor(public pos: number) {}
+  /**
+   * Check if this token is a command token.
+   */
   isCmd(): this is TkCmd {
     return false;
   }
+  /**
+   * Check if this token is a separator token.
+   */
   isSep(): this is TkSep {
     return false;
   }
+  /**
+   * Check if this token is a number token.
+   */
   isNum(): this is TkNum {
     return false;
   }
