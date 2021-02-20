@@ -1,43 +1,39 @@
-# svg-path
+# About
 
-SVG path data toolset written in typescript running on [deno](https://github.com/denoland/deno). 
+A toolset helps manipulate SVG 1.1 [path](https://www.w3.org/TR/SVG11/paths.html#PathDataBNF) data. 
 
-Parser complies with SVG 1.1 [grammar](https://www.w3.org/TR/SVG11/paths.html#PathDataBNF).
+## Usage
+ 
+### Parser
 
-Test coverage 💯%.
-
-## Parser
-
-[ex/validate.ts](./ex/validate.ts)
-
-Supported options: `> deno doc src/mod.ts LexOpt`
+[Example](./ex/validate.ts) 
+| [Docs](https://doc.deno.land/https/raw.githubusercontent.com/ycw/svg-path/main/src/mod.ts#parse) 
+| [Options](https://doc.deno.land/https/raw.githubusercontent.com/ycw/svg-path/main/src/mod.ts#LexOpt)
 
 
-## Error Handling
+### Error Handling
 
-[ex/triage.ts](./ex/triage.ts)
-
-Supported error assertions: `> deno doc src/mod.ts LexErr`
-
-
-## Transformer
-
-[ex/transform.ts](./ex/transform.ts)
-
-Supported segment assertions: `> deno doc src/mod.ts Seg`
+[Example](./ex/triage.ts) 
+| [Docs](https://doc.deno.land/https/raw.githubusercontent.com/ycw/svg-path/main/src/mod.ts#LexErr)
 
 
-## Generator
 
-[ex/codegen.ts](./ex/codegen.ts)
+### Transformer
 
-Supported options: `> deno doc src/mod.ts GenOpt`
+[Example](./ex/transform.ts)
+| [Docs](https://doc.deno.land/https/raw.githubusercontent.com/ycw/svg-path/main/src/mod.ts#transform)
 
-----
 
-## CLI App
+### Generator
 
-The app ( [cli/mod.ts](./cli/mod.ts) ) accepts path data from stdin. 
+[Example](./ex/codegen.ts)
+| [Docs](https://doc.deno.land/https/raw.githubusercontent.com/ycw/svg-path/main/src/mod.ts#generate)
+| [Options](https://doc.deno.land/https/raw.githubusercontent.com/ycw/svg-path/main/src/mod.ts#GenOpt)
+
+
+## CLI 
+
+The CLI [app](./cli/mod.ts) accepts path data from stdin. 
 
 Example:
 
@@ -47,22 +43,15 @@ Output:
 
 `M.6.5z`
 
-Supported flags:
+Available flags:
 
-| flag | default | description |
+| Flag | Default | Description |
 |-|-|-
-|`--terse`| | eliminate unnecessary whitespaces and leading zeros.
-|`--combine` | | eliminate unnecessary command letters.
-|`--mulitline` | | separate commands by line feeds.
-|`-t` | 4 | decimal places that numbers are truncated to.
-|`-x` | 0 | transformation property ( see formula ) 
-|`-y` | 0 | ditto.
-|`-w` | 1 | ditto.
-|`-h` | 1 | ditto.
-
-Formula:
-
-```
-new coord x = ( old coord x - flag x ) / flag w
-new coord y = ( old coord y - flag y ) / flag h
-```
+|`--terse`| | Eliminate unnecessary whitespaces and leading zeros.
+|`--combine` | | Eliminate unnecessary command letters.
+|`--mulitline` | | Separate commands by line feeds.
+|`-t` | 4 | Decimal places that numbers are truncated to.
+|`-x` | 0 | Transformation frame's x 
+|`-y` | 0 | Transformation frame's y
+|`-w` | 1 | Transformation frame's signed width 
+|`-h` | 1 | Transformation frame's signed height
