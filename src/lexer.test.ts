@@ -1,5 +1,5 @@
 import { assertEquals, assertThrows } from "testing/asserts.ts";
-import { TkCmd, TkNum, TkSep } from "./tokenizer.ts";
+import { TkCmd, TkNum } from "./tokenizer.ts";
 import { analyze } from "./lexer.ts";
 import {
   BeginWithCommaErr,
@@ -15,7 +15,6 @@ import {
   TrailingDotErr,
   UnrecognizedErr,
 } from "./error.ts";
-import {} from "./seg.ts";
 
 Deno.test("LexOpt: allowTrailingDot", () => {
   const d = "M 0. 1";
@@ -26,12 +25,9 @@ Deno.test("LexOpt: allowTrailingDot", () => {
       new TkNum(5, "1"),
     ]],
   ]);
-  assertThrows(
-    () => {
-      analyze(d, { allowTrailingDot: false });
-    },
-    TrailingDotErr,
-  );
+  assertThrows(() => {
+    analyze(d, { allowTrailingDot: false });
+  }, TrailingDotErr);
 });
 
 Deno.test("LexOpt: allowNotBeginWithMoveTo", () => {
@@ -42,43 +38,30 @@ Deno.test("LexOpt: allowNotBeginWithMoveTo", () => {
       new TkNum(2, "1"),
     ]],
   ]);
-  assertThrows(
-    () => {
-      analyze(d, { allowNotBeginWithMoveTo: false });
-    },
-    NotBeginWithMoveToErr,
-  );
-});
-
-Deno.test("LexOpt: allowBeginWithComma (false)", () => {
-  const d = ", M 0 0";
-  assertThrows(
-    () => {
-      analyze(d, { allowBeginWithComma: false });
-    },
-    BeginWithCommaErr,
-  );
+  assertThrows(() => {
+    analyze(d, { allowNotBeginWithMoveTo: false });
+  }, NotBeginWithMoveToErr);
 });
 
 Deno.test("LexOpt: allowBeginWithComma", () => {
   const d = ", M 0 0";
-  assertThrows(
-    () => {
-      analyze(d, { allowBeginWithComma: true });
-    },
-    CmdFollowsCommaErr,
-  );
-});
-
-Deno.test("LexOpt: allowEndWithComma (false)", () => {
+  // off
   assertThrows(() => {
-    const d = "M 0 0,";
-    analyze(d, { allowEndWithComma: false });
-  }, EndWithCommaErr);
+    analyze(d, { allowBeginWithComma: false });
+  }, BeginWithCommaErr);
+  // on
+  assertThrows(() => {
+    analyze(d, { allowBeginWithComma: true });
+  }, CmdFollowsCommaErr);
 });
 
 Deno.test("LexOpt: allowEndWithComma", () => {
   const d = "M 0 0,";
+  // off
+  assertThrows(() => {
+    analyze(d, { allowEndWithComma: false });
+  }, EndWithCommaErr);
+  // on
   const instrs = analyze(d, { allowEndWithComma: true });
   assertEquals(instrs, [
     [new TkCmd(0, "M"), [
@@ -117,61 +100,46 @@ Deno.test("LexOpt: allowCmdFollowedByComma (false)", () => {
   }, CmdFollowedByCommaErr);
 });
 
-Deno.test("LexOpt: allowCmdFollowedByComma", () => {
+Deno.test("LexOpt: allowCmdFollowedByComma (true)", () => {
   const d = "M, 0 0";
   const instrs = analyze(d, { allowCmdFollowedByComma: true });
   assertEquals(instrs, [
-    [
-      new TkCmd(0, "M"),
-      [
-        new TkNum(3, "0"),
-        new TkNum(5, "0"),
-      ],
-    ],
+    [new TkCmd(0, "M"), [
+      new TkNum(3, "0"),
+      new TkNum(5, "0"),
+    ]],
   ]);
 });
 
 Deno.test("LexOpt: allowCmdFollowsComma", () => {
   const d = "M 0 0, H 1";
-  assertThrows(
-    () => {
-      analyze(d, { allowCmdFollowsComma: false });
-    },
-    CmdFollowsCommaErr,
-  );
+  // off
+  assertThrows(() => {
+    analyze(d, { allowCmdFollowsComma: false });
+  }, CmdFollowsCommaErr);
+  // on
   const instrs = analyze(d, { allowCmdFollowsComma: true });
   assertEquals(instrs, [
-    [
-      new TkCmd(0, "M"),
-      [
-        new TkNum(2, "0"),
-        new TkNum(4, "0"),
-      ],
-    ],
-    [
-      new TkCmd(7, "H"),
-      [
-        new TkNum(9, "1"),
-      ],
-    ],
+    [new TkCmd(0, "M"), [
+      new TkNum(2, "0"),
+      new TkNum(4, "0"),
+    ]],
+    [new TkCmd(7, "H"), [
+      new TkNum(9, "1"),
+    ]],
   ]);
 });
 
 Deno.test("LexOpt: allowRadiusIsNegative", () => {
-  assertThrows(
-    () => {
-      analyze("M 0 0 A -1 0 0 0 0 0 0", { allowRadiusIsNegative: false });
-    },
-    RadiusIsNegativeErr,
-  );
-
-  assertThrows(
-    () => {
-      analyze("M 0 0 A 0 -1 0 0 0 0 0", { allowRadiusIsNegative: false });
-    },
-    RadiusIsNegativeErr,
-  );
-
+  // off; rx
+  assertThrows(() => {
+    analyze("M 0 0 A -1 0 0 0 0 0 0", { allowRadiusIsNegative: false });
+  }, RadiusIsNegativeErr);
+  // off; ry
+  assertThrows(() => {
+    analyze("M 0 0 A 0 -1 0 0 0 0 0", { allowRadiusIsNegative: false });
+  }, RadiusIsNegativeErr);
+  // on
   const tks = analyze("M 0 0 A -1 0 0 0 0 0 0", {
     allowRadiusIsNegative: true,
   });
@@ -197,28 +165,19 @@ Deno.test("LexOpt: allowRadiusIsNegative", () => {
 //
 
 Deno.test("LexErr: unregconized", () => {
-  assertThrows(
-    () => {
-      analyze("M 0 0 ; L 1 1");
-    },
-    UnrecognizedErr,
-  );
+  assertThrows(() => {
+    analyze("M 0 0 ; L 1 1");
+  }, UnrecognizedErr);
 });
 
 Deno.test("LexErr: consecutive commas", () => {
-  assertThrows(
-    () => {
-      analyze("M 0,,0");
-    },
-    ConsecutiveCommasErr,
-  );
+  assertThrows(() => {
+    analyze("M 0,,0");
+  }, ConsecutiveCommasErr);
 
-  assertThrows(
-    () => {
-      analyze(",, M 0 0", { allowBeginWithComma: true });
-    },
-    ConsecutiveCommasErr,
-  );
+  assertThrows(() => {
+    analyze(",, M 0 0", { allowBeginWithComma: true });
+  }, ConsecutiveCommasErr);
 
   const tks = analyze("M 0,0");
   assertEquals(tks, [
@@ -230,37 +189,25 @@ Deno.test("LexErr: consecutive commas", () => {
 });
 
 Deno.test("LexErr: too few params", () => {
-  assertThrows(
-    () => {
-      analyze("M 0");
-    },
-    TooFewParamsErr,
-  );
+  assertThrows(() => {
+    analyze("M 0");
+  }, TooFewParamsErr);
 });
 
 Deno.test("LexErr: num is not param", () => {
-  assertThrows(
-    () => {
-      analyze("M 0 0 Z 1");
-    },
-    NumIsNotParamErr,
-  );
+  assertThrows(() => {
+    analyze("M 0 0 Z 1");
+  }, NumIsNotParamErr);
 });
 
 Deno.test("LexErr: flag is not '0' or '1'", () => {
-  assertThrows(
-    () => {
-      analyze("M 0 0 A 0 0 0 3 0 0 0");
-    },
-    FlagIsNotZeroOrOneErr,
-  );
+  assertThrows(() => {
+    analyze("M 0 0 A 0 0 0 3 0 0 0");
+  }, FlagIsNotZeroOrOneErr);
 
-  assertThrows(
-    () => {
-      analyze("M 0 0 A 0 0 0 0 2 0 0");
-    },
-    FlagIsNotZeroOrOneErr,
-  );
+  assertThrows(() => {
+    analyze("M 0 0 A 0 0 0 0 2 0 0");
+  }, FlagIsNotZeroOrOneErr);
 });
 
 //
