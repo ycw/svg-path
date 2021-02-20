@@ -2,7 +2,7 @@ import { parse } from "https://deno.land/std@0.87.0/flags/mod.ts";
 import * as D from "../src/mod.ts";
 
 //
-// Defaults config.
+// Defaults options.
 //
 
 const defOpt = {
