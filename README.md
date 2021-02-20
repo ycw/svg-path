@@ -35,7 +35,7 @@ A toolset helps manipulate SVG 1.1 [path](https://www.w3.org/TR/SVG11/paths.html
 
 Installation:
 
-`$ deno install -n svg-path https://raw.githubusercontent.com/ycw/svg-path/main/cli/mod.ts`
+`$ deno install -n svg-path https://deno.land/x/svg_path/cli/mod.ts`
 
 Example:
 
